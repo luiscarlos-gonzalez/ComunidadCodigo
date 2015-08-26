@@ -23,6 +23,7 @@ public class TitlesFragment extends Fragment {
 
     private TitlesAdapter adapter;
     private ListView list;
+    private View v;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,8 +34,7 @@ public class TitlesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View v = inflater.inflate(R.layout.fragment_titles, container, false);
+        v = inflater.inflate(R.layout.fragment_titles, container, false);
 
         list = (ListView) v.findViewById(R.id.listViewTitles);
 
@@ -45,26 +45,21 @@ public class TitlesFragment extends Fragment {
 
         @Override
         protected PostsModel doInBackground(Void... voids) {
-
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setEndpoint("https://public-api.wordpress.com/rest/v1.1/sites/comunidadcodigo.mx/")
+                    .setLogLevel(RestAdapter.LogLevel.FULL)
                     .build();
 
             Wordpress wordpressObject = restAdapter.create(Wordpress.class);
-
             PostsModel posts = wordpressObject.listPosts();
-
             return posts;
         }
 
         @Override
         protected void onPostExecute(PostsModel postsModel) {
             super.onPostExecute(postsModel);
-
             adapter = new TitlesAdapter(postsModel, getActivity().getApplicationContext());
-
             list.setAdapter(adapter);
-
         }
     }
 }
