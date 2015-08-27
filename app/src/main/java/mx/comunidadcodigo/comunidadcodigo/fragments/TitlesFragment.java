@@ -1,6 +1,7 @@
 package mx.comunidadcodigo.comunidadcodigo.fragments;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -20,6 +21,7 @@ import mx.comunidadcodigo.comunidadcodigo.api.Wordpress;
 import mx.comunidadcodigo.comunidadcodigo.api.models.PostModel;
 import mx.comunidadcodigo.comunidadcodigo.api.models.PostsModel;
 import retrofit.RestAdapter;
+import retrofit.http.GET;
 
 /**
  * Created by kentverger on 20/08/15.
@@ -52,6 +54,7 @@ public class TitlesFragment extends Fragment {
                 iPD.putExtra("Title",post.title);
                 iPD.putExtra("FeaturedImage",post.featured_image);
                 iPD.putExtra("Content",post.content);
+                iPD.putExtra("URL",post.URL);
                 startActivity(iPD);
             }
         });
@@ -60,6 +63,18 @@ public class TitlesFragment extends Fragment {
     }
 
     class GetPosts extends AsyncTask<Void, Void, PostsModel> {
+
+        ProgressDialog dialog;
+
+        public GetPosts(){
+            dialog = new ProgressDialog(getActivity());
+        }
+
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage(getString(R.string.app_loading));
+            dialog.show();
+        }
 
         @Override
         protected PostsModel doInBackground(Void... voids) {
@@ -77,6 +92,9 @@ public class TitlesFragment extends Fragment {
             super.onPostExecute(postsModel);
             adapter = new TitlesAdapter(postsModel, getActivity().getApplicationContext());
             list.setAdapter(adapter);
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
         }
     }
 }

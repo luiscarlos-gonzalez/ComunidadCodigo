@@ -1,12 +1,19 @@
 package mx.comunidadcodigo.comunidadcodigo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.v4.view.MenuCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -35,6 +42,7 @@ public class PostDetail extends AppCompatActivity {
     private ImageView imgTop;
     private LinearLayout linContent;
     private ArrayList<String> arrContent;
+    private ShareActionProvider mShareActionProvider;
 
 
     @Override
@@ -144,6 +152,7 @@ public class PostDetail extends AppCompatActivity {
                         .load(R.mipmap.placeholder_img_list)
                         .placeholder(R.color.white)
                         .error(R.color.white)
+                        .transform(new BlurTransformation(mContext, 5, 4))
                         .into(imgTop);
             }
         }else{
@@ -151,6 +160,7 @@ public class PostDetail extends AppCompatActivity {
                     .load(R.mipmap.placeholder_img_list)
                     .placeholder(R.color.white)
                     .error(R.color.white)
+                    .transform(new BlurTransformation(mContext, 5, 4))
                     .into(imgTop);
         }
     }
@@ -165,8 +175,35 @@ public class PostDetail extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_post_detail, menu);
+
+        MenuItem shareItem = menu.findItem(R.id.action_share);
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        mShareActionProvider.setShareIntent(createShareIntent());
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private void setActionBar(){
-        mActionBar.setTitle(getIntent().getStringExtra("Title"));
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View header = inflater.inflate(R.layout.actionbar_custom_2, null);
+        TextView titleA = (TextView) header.findViewById(R.id.text_title_actionbar);
+        titleA.setText(getIntent().getStringExtra("Title"));
+
+        mActionBar.setDisplayShowCustomEnabled(true);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        mActionBar.setCustomView(header);
         mActionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    private Intent createShareIntent() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getIntent().getStringExtra("Title")+" - "+getIntent().getStringExtra("URL"));
+        return shareIntent;
     }
 }

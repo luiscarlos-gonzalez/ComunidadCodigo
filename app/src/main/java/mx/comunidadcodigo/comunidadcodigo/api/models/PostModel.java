@@ -19,4 +19,5 @@ public class PostModel {
     public String type;
     public String featured_image;
     public String URL;
+    public String short_URL;
 }
