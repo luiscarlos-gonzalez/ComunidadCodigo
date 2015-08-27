@@ -40,7 +40,7 @@ public class TitlesAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int i) {
+    public PostModel getItem(int i) {
         return posts.posts.get(i);
     }
 
@@ -113,7 +113,7 @@ public class TitlesAdapter extends BaseAdapter{
                     .into(imgFeatured);
         }
 
-        ;
+
 
         return v;
     }

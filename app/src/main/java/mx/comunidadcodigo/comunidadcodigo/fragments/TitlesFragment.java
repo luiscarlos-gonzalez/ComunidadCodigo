@@ -17,6 +17,7 @@ import mx.comunidadcodigo.comunidadcodigo.PostDetail;
 import mx.comunidadcodigo.comunidadcodigo.R;
 import mx.comunidadcodigo.comunidadcodigo.adapters.TitlesAdapter;
 import mx.comunidadcodigo.comunidadcodigo.api.Wordpress;
+import mx.comunidadcodigo.comunidadcodigo.api.models.PostModel;
 import mx.comunidadcodigo.comunidadcodigo.api.models.PostsModel;
 import retrofit.RestAdapter;
 
@@ -46,7 +47,11 @@ public class TitlesFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PostModel post = adapter.getItem(position);
                 Intent iPD = new Intent(mCntext, PostDetail.class);
+                iPD.putExtra("Title",post.title);
+                iPD.putExtra("FeaturedImage",post.featured_image);
+                iPD.putExtra("Content",post.content);
                 startActivity(iPD);
             }
         });
@@ -60,7 +65,6 @@ public class TitlesFragment extends Fragment {
         protected PostsModel doInBackground(Void... voids) {
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setEndpoint("https://public-api.wordpress.com/rest/v1.1/sites/comunidadcodigo.mx/")
-                    .setLogLevel(RestAdapter.LogLevel.FULL)
                     .build();
 
             Wordpress wordpressObject = restAdapter.create(Wordpress.class);

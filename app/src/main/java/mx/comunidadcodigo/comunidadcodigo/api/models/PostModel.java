@@ -1,5 +1,8 @@
 package mx.comunidadcodigo.comunidadcodigo.api.models;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 /**
  * Created by kentverger on 16/07/15.
  */

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <view
         android:layout_width="match_parent"
@@ -13,14 +14,18 @@
         app:zoomFactor="0.7"
         app:scrollMultiplier="0.5"
         android:id="@+id/view">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:textSize="16dp"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="It&apos;s uh, the other end of town, a block past Maple. Radiation suit, of course, cause all of the fall out from the atomic wars. This is truly amazing, a portable television studio. No wonder your president has to be an actor, he&apos;s gotta look good on television. Now that&apos;s a risk you&apos;ll have to take you&apos;re life depends on it. Whoa, whoa, okay. Oh.  Well, I guess that&apos;s everything. Mr. McFly, Mr. McFly, this just arrived, oh hi Marty. I think it&apos;s your new book. Hi. Doc, you don&apos;t just walk into a store and ask for plutonium. Did you rip this off? Dear Doctor Brown, on the night that I go back in time, you will be shot by terrorists. Please take whatever precautions are necessary to prevent this terrible disaster. Your friend, Marty.  Biff. Doc, I&apos;m from the future. I came here in a time machine that you invented. Now, I need your help to get back to the year 1985. Where? Radiation suit, of course, cause all of the fall out from the atomic wars. This is truly amazing, a portable television studio. No wonder your president has to be an actor, he&apos;s gotta look good on television. That&apos;s a great idea. I&apos;d love to park.  That&apos;s a Florence Nightingale effect. It happens in hospitals when nurses fall in love with their patients. Go to it, kid. Marty. Marty. Marty. Right. What, what is it hot? Oh, you mean how you&apos;re supposed to act on a first date.  Marty, you seem so nervous, is something wrong? This Saturday night, mostly clear, with some scattered clouds. Lows in the upper forties. Don&apos;t tell me. Uh, you want me to buy a subscription to the Saturday Evening Post? He&apos;s an absolute dream. That&apos;s George McFly?  Wrecked? Oh, oh Marty, here&apos;s you keys. You&apos;re all waxed up, ready for tonight. Cause, George, she wants to go to the dance with you, she just doesn&apos;t know it yet. That&apos;s why we got to show her that you, George McFly, are a fighter. You&apos;re somebody who&apos;s gonna stand up for yourself, someone who&apos;s gonna protect her. Good. Have a good trip Einstein, watch your head. What did your mother ever see in that kid?  C&apos;mon, open up, let me out of here, Yo. Where does he come from? There&apos;s that word again, heavy. Why are things so heavy in the future. Is there a problem with the Earth&apos;s gravitational pull? God dammit, I&apos;m late. Don&apos;t stop, Wilbert, drive.  Look, there&apos;s a rhythmic ceremonial ritual coming up. Thanks a lot, kid. C&apos;mon, c&apos;mon. Doc, wait. No, bastards. Thanks a lot, kid."
-            android:id="@+id/textView"/>
+            android:id="@+id/linear_content_post_detail">
+
+        </LinearLayout>
+
+
     </view>
+
+
 
 
 </LinearLayout>
