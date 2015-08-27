@@ -1,6 +1,8 @@
 package mx.comunidadcodigo.comunidadcodigo.fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,8 +10,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import mx.comunidadcodigo.comunidadcodigo.PostDetail;
 import mx.comunidadcodigo.comunidadcodigo.R;
 import mx.comunidadcodigo.comunidadcodigo.adapters.TitlesAdapter;
 import mx.comunidadcodigo.comunidadcodigo.api.Wordpress;
@@ -24,6 +28,7 @@ public class TitlesFragment extends Fragment {
     private TitlesAdapter adapter;
     private ListView list;
     private View v;
+    private Context mCntext;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,8 +40,16 @@ public class TitlesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_titles, container, false);
+        mCntext = v.getContext();
 
         list = (ListView) v.findViewById(R.id.listViewTitles);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent iPD = new Intent(mCntext, PostDetail.class);
+                startActivity(iPD);
+            }
+        });
 
         return v;
     }

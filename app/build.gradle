@@ -23,6 +23,9 @@ android {
 
 repositories {
     jcenter()
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 dependencies {
@@ -31,4 +34,5 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'jp.wasabeef:picasso-transformations:1.0.5'
+    compile 'com.github.kanytu:android-parallax-listview:v1.1'
 }
