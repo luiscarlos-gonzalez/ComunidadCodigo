@@ -10,5 +10,6 @@
         android:id="@+id/img_top_post_detail"
         android:adjustViewBounds="false"
         android:src="@mipmap/placeholder_img_list"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:background="@color/grey800" />
 </LinearLayout>

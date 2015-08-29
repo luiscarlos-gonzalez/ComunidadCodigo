@@ -41,7 +41,7 @@ public class PostDetail extends AppCompatActivity {
     private Context mContext;
     private ImageView imgTop;
     private LinearLayout linContent;
-    private ArrayList<String> arrContent;
+    private ArrayList<String> arrContent,arrImg;
     private ShareActionProvider mShareActionProvider;
 
 
@@ -63,10 +63,8 @@ public class PostDetail extends AppCompatActivity {
         mScrollView.setParallaxView(linTop);
 
         arrContent = new ArrayList<String>();
+        arrImg = new ArrayList<String>();
         String content = getIntent().getStringExtra("Content");
-        //content.replace("\"","'");
-
-        System.out.println("Attachments" + getIntent().getStringExtra("Attachments"));
 
         boolean cont = true;
         boolean fusion = false;
@@ -85,7 +83,12 @@ public class PostDetail extends AppCompatActivity {
                     }else{
                         arrContent.add(tpm);
                     }
+                    int indexII = sTT.indexOf("src=")+5;
+                    String sTTT= sTT.substring(indexII,sTT.length());
+                    String sTTTT = sTTT.substring(0,sTTT.indexOf("\""));
                     arrContent.add("IMG");
+                    arrImg.add(sTTTT);
+
                     content = content.substring(content.indexOf("/>")+2,content.length());
                     fusion = false;
                 }else{//Es Icono o una pendejada
@@ -101,15 +104,19 @@ public class PostDetail extends AppCompatActivity {
             }
         }while(cont);
 
+        int actualPhoto = 0;
         for(int ii=0;ii<arrContent.size();ii++){
             //System.out.println(Html.fromHtml(arrContent.get(ii)).toString());
             //txtTemporal.setText(txtTemporal.getText().toString()+"\n\n***"+Html.fromHtml(arrContent.get(ii)).toString());
 
             if(!arrContent.get(ii).equals("IMG")){
-                String htmlTemp = "<!DOCTYPE html><html><head><title>Page Title</title></head><body>"
+                String htmlTemp = "<!DOCTYPE html><html><head>"+
+                        "<link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'> <style type=\"text/css\"> body {font-family: 'Droid Sans', sans-serif; color: #FFF; background-color: #424242; padding: 10px; text-align: justify; } pre {font-family: 'Droid Sans', sans-serif; color: #FFF; background-color: #424242; } h1 {font-size: larger; } h2 {font-size: larger; } h3 {font-size: large; } a {color: #E0E0E0; } </style>"+
+                        "</head><body>"
                         +arrContent.get(ii)
                         +"</body></html";
                 WebView webTemp = new WebView(mContext);
+                webTemp.setBackgroundColor(getResources().getColor(R.color.grey800));
                 webTemp.getSettings().setJavaScriptEnabled(true);
                 WebSettings webSettings = webTemp.getSettings();
                 webSettings.setJavaScriptEnabled(true);
@@ -119,15 +126,18 @@ public class PostDetail extends AppCompatActivity {
             }else{
                 ImageView imgTemp = new ImageView(mContext);
                 LayoutParams linLayoutParam = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-                linLayoutParam.setMargins(20,20,20,20);
+                linLayoutParam.setMargins(20, 20, 20, 20);
                 imgTemp.setLayoutParams(linLayoutParam);
                 imgTemp.setAdjustViewBounds(true);
 
+                //"http://img1.wikia.nocookie.net/__cb20111008233253/pokemon/images/4/4c/Ash's_Pikachu.png"
                 Picasso.with(mContext)
-                        .load("http://comunidadcodigo.mx/wp-content/uploads/2015/08/Captura-de-pantalla-de-2015-08-19-093456.png")
+                        .load(arrImg.get(actualPhoto))
                         .placeholder(R.color.white)
                         .error(R.color.white)
                         .into(imgTemp);
+
+                actualPhoto++;
 
                 linContent.addView(imgTemp);
             }
@@ -141,8 +151,8 @@ public class PostDetail extends AppCompatActivity {
                 try{
                     Picasso.with(mContext)
                             .load(featuredImage)
-                            .placeholder(R.color.white)
-                            .error(R.color.white)
+                            .placeholder(R.color.grey800)
+                            .error(R.color.grey800)
                             .into(imgTop);
                 }catch(IllegalArgumentException ex){
                     ex.printStackTrace();
@@ -150,17 +160,15 @@ public class PostDetail extends AppCompatActivity {
             }else{
                 Picasso.with(mContext)
                         .load(R.mipmap.placeholder_img_list)
-                        .placeholder(R.color.white)
-                        .error(R.color.white)
-                        .transform(new BlurTransformation(mContext, 5, 4))
+                        .placeholder(R.color.grey800)
+                        .error(R.color.grey800)
                         .into(imgTop);
             }
         }else{
             Picasso.with(mContext)
                     .load(R.mipmap.placeholder_img_list)
-                    .placeholder(R.color.white)
-                    .error(R.color.white)
-                    .transform(new BlurTransformation(mContext, 5, 4))
+                    .placeholder(R.color.grey800)
+                    .error(R.color.grey800)
                     .into(imgTop);
         }
     }

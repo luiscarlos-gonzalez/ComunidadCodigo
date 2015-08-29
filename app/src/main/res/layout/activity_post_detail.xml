@@ -13,7 +13,8 @@
         app:enableZoom="true"
         app:zoomFactor="0.7"
         app:scrollMultiplier="0.5"
-        android:id="@+id/view">
+        android:id="@+id/view"
+        android:background="@color/grey800">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
