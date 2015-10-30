@@ -1,5 +1,8 @@
 package mx.comunidadcodigo.comunidadcodigo.api.models;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 /**
  * Created by kentverger on 16/07/15.
  */
@@ -16,4 +19,5 @@ public class PostModel {
     public String type;
     public String featured_image;
     public String URL;
+    public String short_URL;
 }
